@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-content>
+    <!-- (ngSubmit) is a listener -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="center center"
+    fxLayoutGap="7px">
+        <mat-form-field>
+          <input type="email" formControlName="email" name="email" matInput placeholder="Your email"
+                 required>
+            <mat-hint>Please enter a valid email</mat-hint>
+            <mat-error *ngIf="submitted && f.controls.email.errors?.required">Email is required</mat-error>
+            <mat-error *ngIf="submitted && f.controls.email.errors?.email">Email is invalid</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="password" formControlName="password" name="password" matInput required
+          placeholder="Your password">
+          <mat-error *ngIf="submitted && f.controls.password.errors?.required">Password is required</mat-error>
+        </mat-form-field>
+      <div class="form-group">
+        <button *ngIf="!(isLoading$ | async)" mat-raised-button color="primary"
+                [disabled]="f.invalid">Login</button>
+        <mat-spinner *ngIf="(isLoading$ | async)"></mat-spinner>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
